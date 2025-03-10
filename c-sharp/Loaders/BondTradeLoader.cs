@@ -30,7 +30,7 @@ namespace HmxLabs.TechTest.Loaders
                     trade = new BondTrade(items[6], BondTrade.CorpBondTradeType);
                     break;
                 default:
-                    // Could use TradeId to categorize the trade
+                    // Could use TradeId to categorise the trade
                     trade = new BondTrade(items[6], BondTrade.CorpBondTradeType);
                     break;
             }

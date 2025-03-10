@@ -51,7 +51,28 @@ namespace HmxLabs.TechTest.Models
 
         public IEnumerator<ScalarResult> GetEnumerator()
         {
-            throw new System.NotImplementedException();
+            // Get all unique trade IDs from both dictionaries
+            var allTradeIds = new HashSet<string>(_results.Keys);
+            allTradeIds.UnionWith(_errors.Keys);
+
+            // Create a ScalarResult for each unique trade ID
+            foreach (var tradeId in allTradeIds)
+            {
+                double? priceResult = null;
+                string? error = null;
+
+                if (_results.ContainsKey(tradeId))
+                {
+                    priceResult = _results[tradeId];
+                }
+
+                if (_errors.ContainsKey(tradeId))
+                {
+                    error = _errors[tradeId];
+                }
+
+                yield return new ScalarResult(tradeId, priceResult, error);
+            }
         }
 
         IEnumerator IEnumerable.GetEnumerator()

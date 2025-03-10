@@ -11,6 +11,7 @@
     <ItemGroup>
       <ProjectReference Include="..\Loaders\Loaders.csproj" />
       <ProjectReference Include="..\Models\Models.csproj" />
+      <ProjectReference Include="..\Pricers\Pricers.csproj" />
       <ProjectReference Include="..\RiskSystem\RiskSystem.csproj" />
     </ItemGroup>
 

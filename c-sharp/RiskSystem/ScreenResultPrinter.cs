@@ -14,6 +14,16 @@ namespace HmxLabs.TechTest.RiskSystem
                 // TradeID : Error
                 // If there is no error the output should be :
                 // TradeID : Result
+                Console.Write(result.TradeId);
+                if (result.Result.HasValue)
+                {
+                    Console.Write($" : {result.Result.Value}");
+                }
+                if (!string.IsNullOrWhiteSpace(result.Error))
+                {
+                    Console.Write($" : {result.Error}");
+                }
+                Console.WriteLine();
             }
         }
     }

@@ -6,12 +6,27 @@ namespace HmxLabs.TechTest.Models
     {
         public const string FxSpotTradeType = "FxSpot";
         public const string FxForwardTradeType = "FxFwd";
+        private readonly string _tradeType;
+        public override string TradeType => _tradeType;
+        public DateTime ValueDate { get; set; }
 
-        public override string TradeType
+
+        public FxTrade(string tradeId_, string tradeType_)
         {
-            get { throw new NotImplementedException(); }
+            if (string.IsNullOrWhiteSpace(tradeId_))
+            {
+                throw new ArgumentException("A valid non null, non empty trade ID must be provided");
+            }
+
+            if (tradeType_ != FxForwardTradeType && tradeType_ != FxSpotTradeType)
+            {
+                throw new ArgumentException($"Trade type must be either {FxSpotTradeType} or {FxForwardTradeType}");
+            }
+
+            TradeId = tradeId_;
+            _tradeType = tradeType_;
         }
 
-        public DateTime ValueDate { get; set; }
     }
 }
+

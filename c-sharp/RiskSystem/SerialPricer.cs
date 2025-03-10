@@ -46,7 +46,10 @@ namespace HmxLabs.TechTest.RiskSystem
 
                 try
                 {
-                    Assembly assembly = Assembly.Load(configItem.Assembly);
+                    var shortAssembly = configItem.Assembly.Split('.').Last();
+                    var shortAssemblyPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $"{shortAssembly}.dll");
+
+                    Assembly assembly = Assembly.LoadFrom(shortAssemblyPath);
 
                     // Get the type from the assembly - use null-coalescing operator to throw if type not found
                     Type engineType = assembly.GetType(configItem.TypeName)

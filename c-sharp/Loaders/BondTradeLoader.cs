@@ -5,6 +5,7 @@ namespace HmxLabs.TechTest.Loaders
     public class BondTradeLoader : ITradeLoader
     {
         private const char Seperator = ',';
+        public string? DataFile { get; set; }
 
         public IEnumerable<ITrade> LoadTrades()
         {
@@ -14,13 +15,26 @@ namespace HmxLabs.TechTest.Loaders
             return tradeList;
         }
 
-        public string? DataFile { get; set; }
-
         private BondTrade CreateTradeFromLine(string line_)
         {
-            
-            var items = line_.Split(new[] {Seperator});
-            var trade = new BondTrade(items[6]);
+            var items = line_.Split(new[] { Seperator });
+            string bondType = items[0];
+            BondTrade trade;
+
+            switch (bondType)
+            {
+                case BondTrade.GovBondTradeType:
+                    trade = new BondTrade(items[6], BondTrade.GovBondTradeType);
+                    break;
+                case BondTrade.CorpBondTradeType:
+                    trade = new BondTrade(items[6], BondTrade.CorpBondTradeType);
+                    break;
+                default:
+                    // Could use TradeId to categorize the trade
+                    trade = new BondTrade(items[6], BondTrade.CorpBondTradeType);
+                    break;
+            }
+
             trade.TradeDate = DateTime.Parse(items[1]);
             trade.Instrument = items[2];
             trade.Counterparty = items[3];
@@ -34,7 +48,7 @@ namespace HmxLabs.TechTest.Loaders
         {
             if (null == filename_)
                 throw new ArgumentNullException(nameof(filename_));
-            
+
             var stream = new StreamReader(filename_);
 
             using (stream)
@@ -48,7 +62,14 @@ namespace HmxLabs.TechTest.Loaders
                     }
                     else
                     {
-                        tradeList_.Add(CreateTradeFromLine(stream.ReadLine()!));    
+                        try
+                        {
+                            tradeList_.Add(CreateTradeFromLine(stream.ReadLine()!));
+                        }
+                        catch (InvalidDataException e)
+                        {
+                            Console.WriteLine($"Error processing line: {lineCount}. Error: {e.Message}");
+                        }
                     }
                     lineCount++;
                 }

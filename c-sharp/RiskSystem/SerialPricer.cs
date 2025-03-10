@@ -1,4 +1,4 @@
-﻿using System.Reflection;
+using System.Reflection;
 using HmxLabs.TechTest.Models;
 
 namespace HmxLabs.TechTest.RiskSystem
@@ -29,7 +29,7 @@ namespace HmxLabs.TechTest.RiskSystem
 
         private void LoadPricers()
         {
-            var pricingConfigLoader = new PricingConfigLoader { ConfigFile = @".\PricingConfig\PricingEngines.xml" };
+            var pricingConfigLoader = new PricingConfigLoader { ConfigFile = @".\PricingConfig\TypeNames.xml" };
             var pricerConfig = pricingConfigLoader.LoadConfig();
 
             foreach (var configItem in pricerConfig)

@@ -9,7 +9,7 @@ namespace HmxLabs.TechTest.RiskSystem
         {
             var loaders = GetTradeLoaders();
 
-            return loaders.Select(loader => loader.LoadTrades()).ToList();
+            return loaders.Select(loader => loader.LoadTrades());
         }
 
         private IEnumerable<ITradeLoader> GetTradeLoaders()

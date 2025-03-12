@@ -9,9 +9,13 @@ namespace HmxLabs.TechTest.RiskSystem
     {
         private readonly Dictionary<string, IPricingEngine> _pricers = new Dictionary<string, IPricingEngine>();
 
+        public SerialPricer()
+        {
+            LoadPricers(); // Load pricers at initialization
+        }
+
         public void Price(IEnumerable<IEnumerable<ITrade>> tradeContainters_, IScalarResultReceiver resultReceiver_)
         {
-            LoadPricers();
 
             foreach (var tradeContainter in tradeContainters_)
             {

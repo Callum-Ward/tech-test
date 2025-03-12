@@ -8,10 +8,7 @@ namespace HmxLabs.TechTest.Loaders
 
         public IEnumerable<ITrade> LoadTrades()
         {
-            var tradeList = new FxTradeList();
-            LoadTradesFromFile(DataFile, tradeList);
-
-            return tradeList;
+            return LoadTradesFromFile(DataFile);
         }
 
         public string? DataFile { get; set; }
@@ -51,7 +48,7 @@ namespace HmxLabs.TechTest.Loaders
             return trade;
         }
 
-        private void LoadTradesFromFile(string? filename_, FxTradeList tradeList_)
+        private IEnumerable<ITrade> LoadTradesFromFile(string? filename_)
         {
             if (null == filename_)
                 throw new ArgumentNullException(nameof(filename_));
@@ -69,13 +66,18 @@ namespace HmxLabs.TechTest.Loaders
                     }
                     else
                     {
+                        ITrade? trade = null;
                         try
                         {
-                            tradeList_.Add(CreateTradeFromLine(stream.ReadLine()!));
+                            trade = CreateTradeFromLine(stream.ReadLine()!);
                         }
                         catch (InvalidDataException e)
                         {
                             Console.WriteLine(e.Message);
+                        }
+                        if (trade != null)
+                        {
+                            yield return trade;
                         }
                     }
                     lineCount++;

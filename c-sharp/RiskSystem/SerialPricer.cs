@@ -27,7 +27,7 @@ namespace HmxLabs.TechTest.RiskSystem
                         continue;
                     }
 
-                    var pricer = _pricers[trade.TradeType];
+                    var pricer = _pricers[trade.TradeType]; 
                     pricer.Price(trade, resultReceiver_);
                 }
             }

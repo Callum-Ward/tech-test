@@ -5,15 +5,14 @@ namespace HmxLabs.TechTest.Loaders
     public class FxTradeLoader : ITradeLoader
     {
         private const char Seperator = '¬';
+        public string? DataFile { get; set; }
 
         public IEnumerable<ITrade> LoadTrades()
         {
             return LoadTradesFromFile(DataFile);
         }
 
-        public string? DataFile { get; set; }
-
-        protected ITrade CreateTradeFromLine(string line_)
+        protected FxTrade CreateTradeFromLine(string line_)
         {
             var items = line_.Split(new[] { Seperator });
 

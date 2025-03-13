@@ -5,6 +5,7 @@ namespace HmxLabs.TechTest.Loaders
     public class BondTradeLoader : ITradeLoader
     {
         private const char Seperator = ',';
+        public string? DataFile { get; set; }
 
         public IEnumerable<ITrade> LoadTrades()
         {
@@ -12,13 +13,11 @@ namespace HmxLabs.TechTest.Loaders
 
         }
 
-        public string? DataFile { get; set; }
-
-        private ITrade CreateTradeFromLine(string line_)
+        private BondTrade CreateTradeFromLine(string line_)
         {
             var items = line_.Split(new[] { Seperator });
             string bondType = items[0];
-            ITrade trade;
+            BondTrade trade;
 
             switch (bondType)
             {

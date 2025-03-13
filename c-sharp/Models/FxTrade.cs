@@ -6,8 +6,7 @@ namespace HmxLabs.TechTest.Models
     {
         public const string FxSpotTradeType = "FxSpot";
         public const string FxForwardTradeType = "FxFwd";
-        private readonly string _tradeType;
-        public override string TradeType => _tradeType;
+        public override string TradeType { get; }
         public DateTime ValueDate { get; set; }
 
 
@@ -24,7 +23,7 @@ namespace HmxLabs.TechTest.Models
             }
 
             TradeId = tradeId_;
-            _tradeType = tradeType_;
+            TradeType = tradeType_;
         }
 
     }

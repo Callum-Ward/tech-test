@@ -2,7 +2,9 @@
 {
     public class BondTrade : BaseTrade
     {
-        private readonly string _tradeType;
+        public override string TradeType { get; }
+        public const string CorpBondTradeType = "CorpBond";
+        public const string GovBondTradeType = "GovBond";
 
         public BondTrade(string tradeId_, string tradeType_)
         {
@@ -17,13 +19,10 @@
             }
 
             TradeId = tradeId_;
-            _tradeType = tradeType_;
+            TradeType = tradeType_;
         }
 
-        public const string GovBondTradeType = "GovBond";
-        public const string CorpBondTradeType = "CorpBond";
 
-        public override string TradeType => _tradeType;
     }
 }
 
